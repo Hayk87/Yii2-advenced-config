@@ -1,0 +1,67 @@
+Download Yii2 advanced zip file.
+Unzip.
+in directory ./ shift+(right mouse button) call .cmd
+write: init
+0
+yes
+------------------------------------------------------------------------
+./ directory .htaccess
+________________________
+
+Options -Indexes
+RewriteEngine on
+
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_URI} !^/backend/web/(assets|css)/
+    RewriteCond %{REQUEST_URI} admin
+    RewriteRule .* backend/web/index.php [L]
+
+    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css)/
+    RewriteCond %{REQUEST_URI} !admin
+    RewriteRule .* frontend/web/index.php [L]
+</IfModule>
+------------------------------------------------------------------------
+
+./frontend/web/ and ./backend/web/ directory .htaccess
+______________________________________________________
+
+Options +FollowSymLinks
+IndexIgnore */*
+
+RewriteEngine on
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+RewriteRule . index.php
+-------------------------------------------------------------------------
+./frontend/config/main.php and ./backend/config/main.php  in 'components'
+_________________________________________________________________________
+
+        'urlManager' => [
+        'enablePrettyUrl' => true,
+        'showScriptName' => false,
+        'rules' => [
+        'module/<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
+        [
+            'pattern' => '<controller>/<action>/<name>',
+            'route' => '<controller>/<action>',
+            'suffix' => ''
+        ]
+    ]
+],
+---------------------------------------------------------------------------
+create local hosting.
+paths:
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/yii2/frontend/web/"
+    ServerName yii2.loc
+</VirtualHost>
+
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/yii2/backend/web/"
+    ServerName yii2-admin.loc
+</VirtualHost>
+-----------------------------------------------------------------------------
