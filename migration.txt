@@ -1,0 +1,31 @@
+yii migrate/create table_name
+
+created file in console/migrations. Example:
+----------------------------------------------------------------
+use yii\db\Schema;
+use yii\db\Migration;
+
+class m150101_185401_create_news_table extends \yii\db\Migration
+{
+    public function up()
+    {
+        $this->createTable('tableName', [
+            'id' => Schema::TYPE_PK,
+            'title' => Schema::TYPE_STRING . ' NOT NULL',
+            'content' => Schema::TYPE_TEXT,
+        ]);
+    }
+
+    public function down()
+    {
+        $this->dropTable('tableName');
+    }
+
+}
+------------------------------------------------------------------
+
+yii migrate
+// created a table in DB
+
+yii migrate/down
+// remove a table from DB
