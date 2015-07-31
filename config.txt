@@ -65,3 +65,7 @@ paths:
     ServerName yii2-admin.loc
 </VirtualHost>
 -----------------------------------------------------------------------------
+Change Layout
+
+$this->layout = 'LayoutName';
+return $this->render('file');
